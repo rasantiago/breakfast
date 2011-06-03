@@ -3,6 +3,7 @@ margin-top: 1.0em;
 color: #000000;
 	background: #fffeff url(noise.jpg) repeat;
 	font: 18px/28px Helvetica, Arial, FreeSans, san-serif;
+	min-width: 1150px;
 }
 
 #container {
@@ -26,6 +27,30 @@ h2 { font-size: 1.5em; color: #000f38; }
 h3 { text-align: center; color: #000f38; }
 
 a { color: #000f38; }
+
+#mainLogo {
+	position: fixed;
+	right: 20px;
+	bottom: 20px;
+	width: 202px;
+	height: 100px;
+	display: block;
+}
+
+
+#mainLogo img {
+	position:absolute;
+	left:0;
+	-webkit-transition: opacity 1s ease-in-out;
+	-moz-transition: opacity 1s ease-in-out;
+	-o-transition: opacity 1s ease-in-out;
+	-ms-transition: opacity 1s ease-in-out;	
+	transition: opacity 1s ease-in-out;
+}
+
+#mainLogo img.top:hover {
+	opacity:0;
+}			
 
 .description { 
 	clear: left;
