@@ -50,6 +50,10 @@ a { color: #000f38; }
 
 #mainLogo img.top:hover {
 	opacity:0;
+}
+
+#mainLogo a {
+	
 }			
 
 .description { 
