@@ -1,0 +1,49 @@
+body {
+margin-top: 1.0em;
+color: #000000;
+	background: #fffeff url(noise.jpg) repeat;
+	font: 18px/28px Helvetica, Arial, FreeSans, san-serif;
+}
+
+#container {
+margin: 0 auto;
+width: 700px;
+}
+
+
+h1, h2, h3 {
+	font-family: 'Maven Pro', Helvetica, Arial, FreeSans, san-serif;
+}
+
+h1 { font-size: 3.8em; color: #000f38; margin-bottom: 3px; }
+
+h1 .small { font-size: 0.4em; text-transform: uppercase; float: left; margin-top: 20px; margin-bottom: 30px;}
+
+h1 a { text-decoration: none }
+
+h2 { font-size: 1.5em; color: #000f38; }
+
+h3 { text-align: center; color: #000f38; }
+
+a { color: #000f38; }
+
+.description { 
+	clear: left;
+	margin-bottom: 30px;
+	margin-top: 60px;
+	font-style: italic;
+	font-size: 110%;
+	line-height: 180%;
+	padding: 10px;
+	padding-left: 20px;
+	border-left: 5px solid #000f38;
+    background: url(http://www.rasantiago.com/assets/images/bg_opac_white.png) repeat;
+}
+
+.download { float: right; }
+
+pre { background: #000; color: #fff; padding: 15px;}
+
+hr { border: 0; width: 80%; border-bottom: 1px solid #aaa}
+
+.footer { text-align:center; padding-top:30px; font-style: italic; }
