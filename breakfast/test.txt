@@ -1,0 +1,27 @@
+<?coffes
+
+here is some code
+
+?>
+
+Here is non code
+
+<?coffee
+
+i = 2
+j = 2
+?>
+
+<?js
+
+ some javascript here
+
+?>
+
+More non code 
+
+<?coffes
+
+a little more coffee
+
+?>

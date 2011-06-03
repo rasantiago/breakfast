@@ -1,0 +1,28 @@
+<?coffes
+
+here is some code
+
+?>
+
+Here is non code
+
+(function() {
+  var i, j;
+  i = 2;
+  j = 2;
+}).call(this);
+
+
+
+
+ some javascript here
+
+
+
+More non code 
+
+<?coffes
+
+a little more coffee
+
+?>
