@@ -54,7 +54,7 @@ processCoffee = (content) ->
   for chunk in chunks
     do (chunk) ->
       temp = chunk.match(/<\?coffee([\s\S]*?)\?>/)[1]
-      temp = '<script type="text/javascript">'+ coffee.compile(temp,{bare: true}) + '</script>'
+      temp = coffee.compile(temp,{bare: true})
       content = content.replace(chunk,temp)
   return content
 
@@ -72,7 +72,7 @@ processJS = (content) ->
   return content if not chunks
   for chunk in chunks
     do (chunk) ->
-      temp = '<script type="text/javascript">'+chunk.match(/<\?js([\s\S]*?)\?>/)[1]+'</script>'
+      temp = chunk.match(/<\?js([\s\S]*?)\?>/)[1]
       content = content.replace(chunk,temp)
   return content
 
@@ -101,20 +101,20 @@ processFile file for file in files
 #console.log(content.replace(a[0],coffee.compile(a[1],{bare: true})))
 #console.log(a[0].match(/<\?coffee([\s\S]*?)\?>/)[1])
 
-#watch.createMonitor src, (monitor) ->
-#  monitor.on "created", (f, stat) ->
-#    console.log 'SRC: Created '+f
-#    processFile f
-#    console.log 'DST: Wrote '+dest+f.substr(start_idx)  
-#  monitor.on "changed", (f, curr, prev) ->
-#    console.log "change event"
-#    if curr.mtime.toString() != prev.mtime.toString()
-#      console.log curr
-#      console.log prev
-#      console.log 'SRC: Changed '+f
-#      processFile f
-#      console.log 'DST: Wrote '+dest+f.substr(start_idx)  
-#  monitor.on "removed", (f, stat) ->
-#    console.log 'SRC: Removed '+f
-#    fs.unlinkSync dest+f.substr(start_idx)
-#    console.log 'DST: Removed '+dest+f.substr(start_idx)
+watch.createMonitor src, (monitor) ->
+  monitor.on "created", (f, stat) ->
+    console.log 'SRC: Created '+f
+    processFile f
+    console.log 'DST: Wrote '+dest+f.substr(start_idx)  
+  monitor.on "changed", (f, curr, prev) ->
+    console.log "change event"
+    if curr.mtime.toString() != prev.mtime.toString()
+      console.log curr
+      console.log prev
+      console.log 'SRC: Changed '+f
+      processFile f
+      console.log 'DST: Wrote '+dest+f.substr(start_idx)  
+  monitor.on "removed", (f, stat) ->
+    console.log 'SRC: Removed '+f
+    fs.unlinkSync dest+f.substr(start_idx)
+    console.log 'DST: Removed '+dest+f.substr(start_idx)
