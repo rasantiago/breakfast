@@ -4,10 +4,16 @@ fs = require('fs')
 path = require('path')
 watch = require('watch')
 
-src = 'breakfast'
-dest = 'compiled'
+#console.log process.argv
+
+src = path.normalize(process.cwd()+'/'+process.argv[2]+'/')
+dest = path.normalize(process.cwd()+'/'+process.argv[3]+'/')
 start_idx = src.length
 files = require('findit').findSync src 
+
+#console.log src
+#console.log dest
+console.log files
 
 recurseFilePathList = (paths,file,callback) ->
   if 0 == paths.length
@@ -28,8 +34,8 @@ recurseFilePathList = (paths,file,callback) ->
   return
 
 createPathForFile = (file,callback) ->
-  fullPath = path.dirname(path.resolve(dest+file.substr(start_idx)))
-  parts = path.normalize(fullPath)
+  fullPath = dest+file.substr(start_idx)
+  parts = path.dirname path.normalize(fullPath)
   parts = parts.split '/'
   working = '/'
   pathList = []
@@ -48,7 +54,8 @@ processCoffee = (content) ->
   for chunk in chunks
     do (chunk) ->
       temp = chunk.match(/<\?coffee([\s\S]*?)\?>/)[1]
-      content = content.replace(chunk,coffee.compile(temp))
+      temp = '<script type="text/javascript">'+ coffee.compile(temp,{bare: true}) + '</script>'
+      content = content.replace(chunk,temp)
   return content
 
 processHAML = (content) ->
@@ -65,44 +72,49 @@ processJS = (content) ->
   return content if not chunks
   for chunk in chunks
     do (chunk) ->
-      temp = chunk.match(/<\?js([\s\S]*?)\?>/)[1]
+      temp = '<script type="text/javascript">'+chunk.match(/<\?js([\s\S]*?)\?>/)[1]+'</script>'
       content = content.replace(chunk,temp)
   return content
 
 processFileContent = (file) ->
-  content = fs.readFileSync file,"utf-8"
+  console.log file
+  console.log path.normalize(file)
+  content = fs.readFileSync path.normalize(file),"utf-8"
   content = processCoffee content
   content = processHAML content
   content = processJS content
-  fs.writeFileSync dest+file.substr(start_idx),content,"utf-8"
+  console.log path.normalize(dest+file.substr(start_idx))
+  fs.writeFileSync path.normalize(dest+file.substr(start_idx)),content,"utf-8"
 
 processFile = (file) ->
   try
+    return if fs.lstatSync(file).isDirectory()
     createPathForFile file,processFileContent
   catch e
     error.log e
 
-#processFile file for file in files
+
+processFile file for file in files
 
 #content = fs.readFileSync 'test2.txt',"utf-8"
 #a = content.match(/<\?coffee([\s\S]*?)\?>/g)
 #console.log(content.replace(a[0],coffee.compile(a[1],{bare: true})))
 #console.log(a[0].match(/<\?coffee([\s\S]*?)\?>/)[1])
 
-watch.createMonitor src, (monitor) ->
-  monitor.on "created", (f, stat) ->
-    console.log 'SRC: Created '+f
-    processFile f
-    console.log 'DST: Wrote '+dest+f.substr(start_idx)  
-  monitor.on "changed", (f, curr, prev) ->
-    console.log "change event"
-    if curr.mtime.toString() != prev.mtime.toString()
-      console.log curr
-      console.log prev
-      console.log 'SRC: Changed '+f
-      processFile f
-      console.log 'DST: Wrote '+dest+f.substr(start_idx)  
-  monitor.on "removed", (f, stat) ->
-    console.log 'SRC: Removed '+f
-    fs.unlinkSync dest+f.substr(start_idx)
-    console.log 'DST: Removed '+dest+f.substr(start_idx)
+#watch.createMonitor src, (monitor) ->
+#  monitor.on "created", (f, stat) ->
+#    console.log 'SRC: Created '+f
+#    processFile f
+#    console.log 'DST: Wrote '+dest+f.substr(start_idx)  
+#  monitor.on "changed", (f, curr, prev) ->
+#    console.log "change event"
+#    if curr.mtime.toString() != prev.mtime.toString()
+#      console.log curr
+#      console.log prev
+#      console.log 'SRC: Changed '+f
+#      processFile f
+#      console.log 'DST: Wrote '+dest+f.substr(start_idx)  
+#  monitor.on "removed", (f, stat) ->
+#    console.log 'SRC: Removed '+f
+#    fs.unlinkSync dest+f.substr(start_idx)
+#    console.log 'DST: Removed '+dest+f.substr(start_idx)

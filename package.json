@@ -1,0 +1,26 @@
+{
+  "name":         "breakfast",
+  "description":  "Coffee(script), HAML and a side of SASS.... a breakfast burrito for ",
+  "keywords":     ["javascript", "language", "coffeescript", "compiler", "haml,"sass","scss"],
+  "author":       "Roberto A. Santiago",
+  "version":      "0.1.0",
+  "licenses":     [{
+    "type":       "MIT",
+    "url":        "http://github.com/jashkenas/coffee-script/raw/master/LICENSE"
+  }],
+  "engines":      {
+    "node":       ">=0.2.5"
+  },
+  "directories" : {
+    "lib" : "./lib"
+  },
+  "main" : "./lib/breakfast",
+  "bin":          {
+    "breakfast":     "./bin/breakfast"
+  },
+  "homepage":     "http://rasantiago.github.com/breakfast",
+  "repository":   {
+    "type": "git",
+    "url": "git://github.com/rasantiago/breakfast.git"
+  }
+}
