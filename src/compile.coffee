@@ -3,18 +3,12 @@ path = require('path')
 
 breakfast = require('./breakfast')
 
-#console.log process.argv
-
 src = path.normalize(process.cwd()+'/'+process.argv[2]+'/')
 dest = path.normalize(process.cwd()+'/'+process.argv[3]+'/')
 
 start_idx = src.length
 
 files = require('findit').findSync src 
-
-#console.log src
-#console.log dest
-#console.log files
 
 for file in files
   do(file) ->
