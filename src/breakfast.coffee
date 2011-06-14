@@ -50,7 +50,6 @@ processHAML = (content) ->
   for chunk in chunks
     do (chunk) ->
       temp = chunk.match(/<\?haml([\s\S]*?)\?>/)[1]
-      console.log temp
       content = content.replace(chunk,haml.render(temp))
   return content
 
